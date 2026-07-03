@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seniority Framework M1-M3 s Pyramídou</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1150px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: #005088;
+            margin: 0;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .left-side {
+            flex: 1;
+            max-width: 480px;
+            position: sticky;
+            top: 20px;
+        }
+        .right-side {
+            flex: 1.4;
+        }
+
+        .pyramid-svg {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+        .pyramid-layer {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.88; /* Neaktívne vrstvy sú mierne stlmené, text zostáva čitateľný */
+        }
+        .pyramid-layer text {
+            user-select: none;
+            pointer-events: none;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .pyramid-layer:hover {
+            opacity: 0.8;
+        }
+        .pyramid-layer.active {
+            opacity: 1;
+        }
+        .pyramid-layer.active polygon {
+            stroke: #0F2E5C;
+            stroke-width: 4px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px solid #eef2f5;
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 5px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .tab:hover {
+            color: #005088;
+        }
+        .tab.active {
+            color: #005088;
+            border-bottom: 3px solid #005088;
+        }
+
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .card {
+            border: 1px solid #eef2f5;
+            padding: 30px;
+            border-radius: 8px;
+            background: #fafbfc;
+        }
+        .card h2 {
+            color: #005088;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 12px;
+        }
+        .card p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+        }
+        .card strong {
+            color: #111;
+        }
+        .card ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        .card li {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .space-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #005088;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .space-link:hover {
+            color: #00335a;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left-side {
+                width: 100%;
+                max-width: 400px;
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>OBJEKTÍVNE KRITÉRIA A POPIS GRADOV — MANAGEMENT</h1>
+    </div>
+
+    <div class="main-layout">
+
+        <div class="left-side">
+            <svg viewBox="0 0 500 260" class="pyramid-svg">
+                <g class="pyramid-layer" data-level="m3">
+                    <polygon points="250,0 315,95 185,95" fill="#0F2E5C" stroke="#0F2E5C" stroke-width="2"/>
+                    <text x="250" y="42" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">
+                        <tspan x="250" dy="0">M3</tspan>
+                        <tspan x="250" dy="13">Head of</tspan>
+                        <tspan x="250" dy="13">/ Director</tspan>
+                    </text>
+                </g>
+                <g class="pyramid-layer" data-level="m2">
+                    <polygon points="185,95 315,95 365,175 135,175" fill="#4472C4" stroke="#0F2E5C" stroke-width="2"/>
+                    <text x="250" y="135" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">
+                        <tspan x="250" dy="0">M2 Area/Group</tspan>
+                        <tspan x="250" dy="15">Manager</tspan>
+                    </text>
+                </g>
+                <g class="pyramid-layer active" data-level="m1">
+                    <polygon points="135,175 365,175 415,260 85,260" fill="#C3D6F0" stroke="#0F2E5C" stroke-width="2"/>
+                    <text x="250" y="222" text-anchor="middle" font-weight="bold" fill="#12305c" font-size="14">M1 Team Lead</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="right-side">
+
+            <div class="tabs">
+                <div class="tab active" data-cat="zodpovednost">Zodpovednosť</div>
+                <div class="tab" data-cat="vplyv">Rozsah vplyvu a miera rizika</div>
+                <div class="tab" data-cat="zlozitost">Zložitosť úloh</div>
+                <div class="tab" data-cat="namahavost">Namáhavosť a prac. podmienky</div>
+            </div>
+
+            <div class="content-section active" data-level="m1" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>M1 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>každodenný výkon a dodávku úloh zvereného malého tímu.</li>
+                        <li>rozdeľovanie práce, kontrolu kvality a dodržiavanie termínov u priamych podriadených.</li>
+                        <li>operatívne riešenie bežných prekážok a rozvoj členov tímu (1st line management).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="m1" data-cat="vplyv">
+                <div class="card">
+                    <h2>M1 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Tímový.</strong><br>Ovplyvňuje plynulosť práce, motiváciu a chybovosť v rámci jedného tímu, priamy dopad na dodržiavanie termínov.</p>
+                    <p><strong>Miera rizika: Stredná.</strong><br>Chyby v riadení môžu spôsobiť krátkodobé zdržanie projektov, eliminovateľné rýchlou eskaláciou.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m1" data-cat="zlozitost">
+                <div class="card">
+                    <h2>M1 - Zložitosť úloh</h2>
+                    <p><strong>Stredná (Operatívna koordinácia).</strong> Riadenie a rozdeľovanie jasne definovaných úloh v rámci tímu, využíva overené manažérske postupy a firemné štandardy.</p>
+                    <p><strong>Charakter úloh:</strong> Identifikuje a odstraňuje bežné prekážky v práci tímu.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m1" data-cat="namahavost">
+                <div class="card">
+                    <h2>M1 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Interpersonálna a mentálna záťaž:</strong> neustály kontakt s tímom, riešenie potrieb a konfliktov; multitasking a kontrola kvality výstupov; tlak na dodržiavanie denných/týždenných cieľov.</p>
+                </div>
+            </div>
+
+            <div class="content-section" data-level="m2" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>M2 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>koordináciu a synergiu medzi viacerými tímami.</li>
+                        <li>efektívne využívanie kapacít, zdrojov a priorít v zverenej oblasti.</li>
+                        <li>riešenie eskalácií presahujúcich rámec jedného tímu.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="m2" data-cat="vplyv">
+                <div class="card">
+                    <h2>M2 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Funkčný/procesný.</strong><br>Ovplyvňuje synergiu medzi viacerými tímami, dopad na stabilitu procesov naprieč skupinami.</p>
+                    <p><strong>Miera rizika: Vysoká.</strong><br>Nesprávne rozhodnutie môže viesť k systémovým chybám, výpadkom alebo fluktuácii kľúčových zamestnancov.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m2" data-cat="zlozitost">
+                <div class="card">
+                    <h2>M2 - Zložitosť úloh</h2>
+                    <p><strong>Vysoká (Taktická a systémová).</strong> Synchronizácia práce viacerých tímov, navrhuje a implementuje procesné zmeny.</p>
+                    <p><strong>Charakter úloh:</strong> Rieši komplexné eskalácie presahujúce kompetenciu team leadov.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m2" data-cat="namahavost">
+                <div class="card">
+                    <h2>M2 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Mentálna a organizačná záťaž:</strong> zosúlaďovanie záujmov viacerých tímov; psychická odolnosť pri nepopulárnych rozhodnutiach o prioritizácii zdrojov; zvýšený tlak na udržanie kľúčových ľudí.</p>
+                </div>
+            </div>
+
+            <div class="content-section" data-level="m3" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>M3 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>celkové výsledky, stabilitu a smerovanie celého oddelenia.</li>
+                        <li>finančné riadenie (rozpočet/P&amp;L) a strategické rozhodnutia.</li>
+                        <li>súlad fungovania oddelenia s dlhodobými cieľmi firmy.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="m3" data-cat="vplyv">
+                <div class="card">
+                    <h2>M3 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Strategický a celofiremný.</strong><br>Ovplyvňuje stabilitu, reputáciu a výsledky celého oddelenia, priamy vplyv na ziskovosť a rozpočet.</p>
+                    <p><strong>Miera rizika: Kritická.</strong><br>Chybné strategické rozhodnutie má priamy finančný, právny a reputačný dopad, ohrozuje plnenie záväzkov voči klientom.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m3" data-cat="zlozitost">
+                <div class="card">
+                    <h2>M3 - Zložitosť úloh</h2>
+                    <p><strong>Kritická (Strategická a koncepčná).</strong> Riadenie neštruktúrovaných a vysoko komplexných zadaní s dlhodobým dopadom, definuje víziu tam, kde neexistujú manuály.</p>
+                    <p><strong>Charakter úloh:</strong> Vytvára strategické rámce pre fungovanie celého oddelenia.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="m3" data-cat="namahavost">
+                <div class="card">
+                    <h2>M3 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Extrémna psychická záťaž:</strong> konečná zodpovednosť za výsledky oddelenia a osud zamestnancov; vysoká miera neistoty (strategický tlak trhu a akcionárov); časová náročnosť a flexibilita aj v krízových situáciách.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const pyramidLayers = document.querySelectorAll('.pyramid-layer');
+    const tabs = document.querySelectorAll('.tab');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    let currentLevel = 'm1';
+    let currentCat = 'zodpovednost';
+
+    function filterContent() {
+        contentSections.forEach(section => {
+            const levelMatch = section.getAttribute('data-level') === currentLevel;
+            const catMatch = section.getAttribute('data-cat') === currentCat;
+
+            if (levelMatch && catMatch) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+
+        pyramidLayers.forEach(layer => {
+            if (layer.getAttribute('data-level') === currentLevel) {
+                layer.classList.add('active');
+            } else {
+                layer.classList.remove('active');
+            }
+        });
+    }
+
+    pyramidLayers.forEach(layer => {
+        layer.addEventListener('click', () => {
+            currentLevel = layer.getAttribute('data-level');
+            filterContent();
+        });
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentCat = tab.getAttribute('data-cat');
+            filterContent();
+        });
+    });
+</script>
+
+</body>
+</html>

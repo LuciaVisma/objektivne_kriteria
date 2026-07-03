@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seniority Framework S1-S3 s Pyramídou</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 1150px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: #005088;
+            margin: 0;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ROZLOŽENIE: Pyramída vľavo, texty vpravo */
+        .main-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .left-side {
+            flex: 1;
+            max-width: 480px;
+            position: sticky;
+            top: 20px;
+        }
+        .right-side {
+            flex: 1.4;
+        }
+
+        /* DIZAJN PYRAMÍDY (SVG) */
+        .pyramid-svg {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+        .pyramid-layer {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.88; /* Neaktívne vrstvy sú mierne stlmené, text zostáva čitateľný */
+        }
+        .pyramid-layer text {
+            user-select: none;
+            pointer-events: none;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .pyramid-layer:hover {
+            opacity: 0.8;
+        }
+        .pyramid-layer.active {
+            opacity: 1;
+        }
+        .pyramid-layer.active polygon {
+            stroke: #5c1233;
+            stroke-width: 4px;
+        }
+
+        /* ZÁLOŽKY KATEGÓRIÍ VPRAVO */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px solid #eef2f5;
+            margin-bottom: 25px;
+            padding-bottom: 5px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 5px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .tab:hover {
+            color: #005088;
+        }
+        .tab.active {
+            color: #005088;
+            border-bottom: 3px solid #005088;
+        }
+
+        /* OBSAHOVÁ KARTA */
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .card {
+            border: 1px solid #eef2f5;
+            padding: 30px;
+            border-radius: 8px;
+            background: #fafbfc;
+        }
+        .card h2 {
+            color: #005088;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 1px solid #eef2f5;
+            padding-bottom: 12px;
+        }
+        .card p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 15px 0;
+        }
+        .card strong {
+            color: #111;
+        }
+        .card ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        .card li {
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .space-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #005088;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .space-link:hover {
+            color: #00335a;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                flex-direction: column;
+                align-items: center;
+            }
+            .left-side {
+                width: 100%;
+                max-width: 400px;
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>OBJEKTÍVNE KRITÉRIA A POPIS GRADOV — SUPPORT</h1>
+    </div>
+
+    <div class="main-layout">
+
+        <div class="left-side">
+            <svg viewBox="0 0 500 260" class="pyramid-svg">
+                <g class="pyramid-layer" data-level="s3">
+                    <polygon points="250,0 315,95 185,95" fill="#7A2048" stroke="#5c1233" stroke-width="2"/>
+                    <text x="250" y="42" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">
+                        <tspan x="250" dy="0">S3</tspan>
+                        <tspan x="250" dy="13">Seniorní</tspan>
+                        <tspan x="250" dy="13">/ Lead</tspan>
+                    </text>
+                </g>
+                <g class="pyramid-layer" data-level="s2">
+                    <polygon points="185,95 315,95 365,175 135,175" fill="#C24A78" stroke="#5c1233" stroke-width="2"/>
+                    <text x="250" y="135" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="12">
+                        <tspan x="250" dy="0">S2 Skúsení</tspan>
+                        <tspan x="250" dy="15">(Experienced)</tspan>
+                    </text>
+                </g>
+                <g class="pyramid-layer active" data-level="s1">
+                    <polygon points="135,175 365,175 415,260 85,260" fill="#F1C6D8" stroke="#5c1233" stroke-width="2"/>
+                    <text x="250" y="222" text-anchor="middle" font-weight="bold" fill="#5c1233" font-size="14">S1 Juniori</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="right-side">
+
+            <div class="tabs">
+                <div class="tab active" data-cat="zodpovednost">Zodpovednosť</div>
+                <div class="tab" data-cat="vplyv">Rozsah vplyvu a miera rizika</div>
+                <div class="tab" data-cat="zlozitost">Zložitosť úloh</div>
+                <div class="tab" data-cat="namahavost">Namáhavosť a prac. podmienky</div>
+            </div>
+
+            <div class="content-section active" data-level="s1" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>S1 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>správnosť vstupných dát, dodržiavanie vopred nastavených procesov a termínov.</li>
+                        <li>správne vykonanie pridelených čiastkových úloh (rutinné, s jasne definovaným vstupom/výstupom).</li>
+                        <li>včasnú eskaláciu nejasností alebo chýb, ktoré nevie vyriešiť podľa manuálu.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="s1" data-cat="vplyv">
+                <div class="card">
+                    <h2>S1 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Individuálny.</strong><br>Ovplyvňuje plynulosť spracovania konkrétnej položky/úlohy.</p>
+                    <p><strong>Miera rizika: Nízka.</strong><br>Chyby sú zachytiteľné v procese kontroly vyššou úrovňou alebo systémom.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s1" data-cat="zlozitost">
+                <div class="card">
+                    <h2>S1 - Zložitosť úloh</h2>
+                    <p><strong>Nízka (Rutinná/operatívna).</strong> Vykonávanie jasne definovaných a ohraničených zadaní presne podľa manuálu alebo priameho pokynu.</p>
+                    <p><strong>Charakter úloh:</strong> Pri odchýlke od štandardu úlohu okamžite eskaluje.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s1" data-cat="namahavost">
+                <div class="card">
+                    <h2>S1 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Senzorická záťaž:</strong> vysoká senzorická záťaž a potreba dlhodobého sústredenia na detail pri vykonávaní rutinných administratívnych úloh.</p>
+                </div>
+            </div>
+
+            <div class="content-section" data-level="s2" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>S2 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>spracovanie ucelených častí agendy (vlastný "balík" úloh).</li>
+                        <li>samostatné riešenie bežných odchýlok a komunikáciu s partnermi (interní/externí).</li>
+                        <li>vecnú správnosť výstupov vo zverenej oblasti.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="s2" data-cat="vplyv">
+                <div class="card">
+                    <h2>S2 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Tímový/procesný.</strong><br>Ovplyvňuje funkčnosť zverenej oblasti.</p>
+                    <p><strong>Miera rizika: Stredná.</strong><br>Chyba môže spôsobiť zdržanie procesov.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s2" data-cat="zlozitost">
+                <div class="card">
+                    <h2>S2 - Zložitosť úloh</h2>
+                    <p><strong>Stredná (Samostatná/koordinačná).</strong> Rieši štandardné odborné problémy v rámci zverenej agendy, vyberá najvhodnejší postup z viacerých možností.</p>
+                    <p><strong>Charakter úloh:</strong> Identifikuje príčinu bežnej chyby a samostatne ju odstraňuje.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s2" data-cat="namahavost">
+                <div class="card">
+                    <h2>S2 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Mentálna záťaž:</strong> vysoká mentálna záťaž vyžadujúca samostatné riešenie úloh v dynamickom prostredí s pevne stanovenými termínmi a uzávierkami.</p>
+                </div>
+            </div>
+
+            <div class="content-section" data-level="s3" data-cat="zodpovednost">
+                <div class="card">
+                    <h2>S3 - Zodpovednosť</h2>
+                    <p><strong>Zodpovednosť za:</strong></p>
+                    <ul>
+                        <li>metodickú správnosť a odbornú kontinuitu agendy (garant procesov).</li>
+                        <li>mentoring a odbornú podporu pre S1 a S2 (know-how sharing).</li>
+                        <li>riešenie kritických a neštandardných incidentov presahujúcich kompetencie S2, komunikáciu s manažmentom.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-section" data-level="s3" data-cat="vplyv">
+                <div class="card">
+                    <h2>S3 - Rozsah vplyvu a miera rizika</h2>
+                    <p><strong>Rozsah vplyvu: Profesijný/procesný.</strong><br>Zodpovedá za stabilitu profesijných postupov a kvalitu dát celého tímu.</p>
+                    <p><strong>Miera rizika: Vysoká.</strong><br>Nesprávne odborné rozhodnutie alebo zlá metodika má priamy finančný/právny dopad na spoločnosť.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s3" data-cat="zlozitost">
+                <div class="card">
+                    <h2>S3 - Zložitosť úloh</h2>
+                    <p><strong>Vysoká (Analytická/metodická).</strong> Rieši neštruktúrované a komplexné zadania, navrhuje nové postupy, optimalizuje procesy.</p>
+                    <p><strong>Charakter úloh:</strong> Vyžaduje hlbokú analýzu a hľadanie nekonvenčných riešení (troubleshooting) bez prescríbovaného manuálu.</p>
+                </div>
+            </div>
+            <div class="content-section" data-level="s3" data-cat="namahavost">
+                <div class="card">
+                    <h2>S3 - Namáhavosť a pracovné podmienky</h2>
+                    <p><strong>Psychická záťaž:</strong> vysoká psychická záťaž vyplývajúca z odbornej zodpovednosti za kritické procesy, metodiku a riešenie komplexných eskalácií pod tlakom.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const pyramidLayers = document.querySelectorAll('.pyramid-layer');
+    const tabs = document.querySelectorAll('.tab');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    let currentLevel = 's1';
+    let currentCat = 'zodpovednost';
+
+    function filterContent() {
+        contentSections.forEach(section => {
+            const levelMatch = section.getAttribute('data-level') === currentLevel;
+            const catMatch = section.getAttribute('data-cat') === currentCat;
+
+            if (levelMatch && catMatch) {
+                section.classList.add('active');
+            } else {
+                section.classList.remove('active');
+            }
+        });
+
+        pyramidLayers.forEach(layer => {
+            if (layer.getAttribute('data-level') === currentLevel) {
+                layer.classList.add('active');
+            } else {
+                layer.classList.remove('active');
+            }
+        });
+    }
+
+    pyramidLayers.forEach(layer => {
+        layer.addEventListener('click', () => {
+            currentLevel = layer.getAttribute('data-level');
+            filterContent();
+        });
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentCat = tab.getAttribute('data-cat');
+            filterContent();
+        });
+    });
+</script>
+
+</body>
+</html>
